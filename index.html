@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lalapan Nusantara</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    :root {
+      --leaf-green: #2D5A27;
+      --fresh-green: #4A7C43;
+      --light-green: #E8F5E3;
+      --chili-red: #C41E3A;
+      --wood-brown: #8B5A2B;
+      --cream: #FFF8F0;
+      --warm-white: #FFFDF9;
+    }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #2D5A27 0%, #4A7C43 50%, #2D5A27 100%);
+    }
+    
+    .food-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .food-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(45, 90, 39, 0.15);
+    }
+    
+    .spicy-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    
+    .banana-leaf-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-2 8-8 15-15 20 7 5 13 12 15 20 2-8 8-15 15-20-7-5-13-12-15-20z' fill='%232D5A27' fill-opacity='0.05'/%3E%3C/svg%3E");
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #C41E3A;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .cart-badge {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .floating-whatsapp {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .scroll-smooth {
+      scroll-behavior: smooth;
+    }
+    
+    .toast {
+      animation: slideIn 0.3s ease-out, fadeOut 0.3s ease-in 2.7s;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full font-body bg-[#FFFDF9] text-gray-800 scroll-smooth">
+  <div id="app" class="w-full h-full overflow-auto"><!-- Navigation -->
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between items-center h-16 sm:h-20">
+      <div class="flex items-center gap-2">
+       <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2D5A27] flex items-center justify-center">
+        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewbox="0 0 24 24" fill="currentColor"><path d="M12 2C8.5 2 5.5 4 4 7c-1.5 3-1 6.5 1 9s5 4 8 4c2.5 0 5-1 6.5-3s2-4.5 1-7c-.5-1.5-1.5-3-3-4C16 4.5 14 3 12 2zm0 2c1.5 0 3 .5 4 1.5.5.5 1 1 1.5 1.5-1 0-2 .5-2.5 1.5-.5-1-1.5-1.5-2.5-1.5s-2 .5-2.5 1.5c-.5-1-1.5-1.5-2.5-1.5.5-.5 1-1 1.5-1.5 1-1 2.5-1.5 4-1.5z" />
+        </svg>
+       </div><span id="nav-brand" class="font-display text-xl sm:text-2xl font-bold text-[#2D5A27]">Lalapan Nusantara</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-gray-700 hover:text-[#2D5A27] font-medium">Beranda</a> <a href="#menu" class="nav-link text-gray-700 hover:text-[#2D5A27] font-medium">Menu</a> <a href="#about" class="nav-link text-gray-700 hover:text-[#2D5A27] font-medium">Tentang</a> <a href="#contact" class="nav-link text-gray-700 hover:text-[#2D5A27] font-medium">Kontak</a>
+      </div>
+      <div class="flex items-center gap-3"><button id="cart-btn" onclick="showCart()" class="relative p-2 sm:p-3 bg-[#E8F5E3] rounded-full hover:bg-[#d4eacc] transition-colors">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#2D5A27]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg><span id="cart-count" class="cart-badge absolute -top-1 -right-1 w-5 h-5 bg-[#C41E3A] text-white text-xs font-bold rounded-full flex items-center justify-center hidden">0</span> </button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg></button>
+      </div>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+     <div class="px-4 py-3 space-y-2"><a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-[#2D5A27] font-medium">Beranda</a> <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-[#2D5A27] font-medium">Menu</a> <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-[#2D5A27] font-medium">Tentang</a> <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-gray-700 hover:text-[#2D5A27] font-medium">Kontak</a>
+     </div>
+    </div>
+   </nav><!-- Main Content Container -->
+   <div id="main-content"><!-- Hero Section -->
+    <section id="home" class="pt-16 sm:pt-20">
+     <div class="hero-gradient relative overflow-hidden">
+      <div class="absolute inset-0 banana-leaf-pattern opacity-30"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28 relative">
+       <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div class="text-white text-center lg:text-left">
+         <div id="promo-banner" class="inline-block bg-[#C41E3A] text-white px-4 py-2 rounded-full text-sm font-semibold mb-6 animate-pulse">
+          🔥 Promo Hari Ini: Gratis Sambal Extra!
+         </div>
+         <h1 id="hero-title" class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">Lalapan Segar,<br>
+          Cita Rasa Nusantara</h1>
+         <p id="hero-subtitle" class="text-lg sm:text-xl text-green-100 mb-8 max-w-xl mx-auto lg:mx-0">Nikmati kesegaran sayuran pilihan dengan sambal khas yang menggugah selera. Dibuat dari bahan-bahan segar setiap hari.</p>
+         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"><a href="#menu" class="inline-flex items-center justify-center px-8 py-4 bg-white text-[#2D5A27] font-bold rounded-full hover:bg-green-50 transition-all transform hover:scale-105 shadow-lg"> <span>Pesan Sekarang</span>
+           <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+           </svg></a> <a href="#about" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-all"> Tentang Kami </a>
+         </div>
+        </div>
+        <div class="relative">
+         <div class="relative w-full aspect-square max-w-lg mx-auto"><!-- Main food illustration -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#8B5A2B] to-[#6B4423] rounded-full shadow-2xl flex items-center justify-center overflow-hidden"><!-- Banana leaf base -->
+           <svg class="absolute w-full h-full" viewbox="0 0 200 200"><ellipse cx="100" cy="100" rx="90" ry="85" fill="#3D7A35" /> <path d="M100 20 Q120 100 100 180" stroke="#2D5A27" stroke-width="3" fill="none" /> <path d="M30 60 Q100 80 170 60" stroke="#4A7C43" stroke-width="2" fill="none" /> <path d="M30 140 Q100 120 170 140" stroke="#4A7C43" stroke-width="2" fill="none" />
+           </svg><!-- Rice -->
+           <div class="absolute top-1/4 left-1/4 w-24 h-20 bg-gradient-to-br from-white to-gray-100 rounded-full transform -rotate-12"></div><!-- Fried chicken -->
+           <div class="absolute top-1/3 right-1/4 w-20 h-16 bg-gradient-to-br from-[#D4A574] to-[#B8860B] rounded-2xl transform rotate-12 shadow-lg">
+            <div class="absolute inset-1 bg-gradient-to-br from-[#E5B88A] to-[#C49555] rounded-xl"></div>
+           </div><!-- Tempeh -->
+           <div class="absolute bottom-1/3 left-1/3 w-14 h-10 bg-gradient-to-br from-[#D2B48C] to-[#8B7355] rounded-lg transform -rotate-6"></div><!-- Tofu -->
+           <div class="absolute bottom-1/4 right-1/3 w-12 h-12 bg-gradient-to-br from-[#FFF8DC] to-[#F5DEB3] rounded-lg shadow"></div><!-- Fresh vegetables -->
+           <div class="absolute top-1/2 left-1/6 w-8 h-16 bg-gradient-to-b from-[#228B22] to-[#006400] rounded-full transform -rotate-45"></div>
+           <div class="absolute bottom-1/4 left-1/4 w-6 h-14 bg-gradient-to-b from-[#32CD32] to-[#228B22] rounded-full transform rotate-30"></div><!-- Sambal -->
+           <div class="absolute bottom-1/3 right-1/5 w-10 h-10 bg-gradient-to-br from-[#FF4500] to-[#C41E3A] rounded-full shadow-inner">
+            <div class="absolute inset-1 bg-gradient-to-br from-[#FF6347] to-[#DC143C] rounded-full"></div>
+           </div><!-- Chili -->
+           <div class="absolute top-1/4 right-1/6 w-3 h-10 bg-gradient-to-b from-[#FF0000] to-[#8B0000] rounded-full transform rotate-45"></div>
+          </div><!-- Decorative elements -->
+          <div class="absolute -top-4 -right-4 w-16 h-16 bg-[#C41E3A] rounded-full flex items-center justify-center text-white font-bold shadow-lg"><span class="text-xs text-center">100%<br>
+            Segar</span>
+          </div>
+          <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+           <div class="text-center"><span class="text-2xl">🌿</span>
+            <p class="text-xs font-semibold text-[#2D5A27]">Alami</p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Wave decoration -->
+      <div class="absolute bottom-0 left-0 right-0">
+       <svg viewbox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#FFFDF9" />
+       </svg>
+      </div>
+     </div>
+    </section><!-- Daily Specials -->
+    <section class="py-12 sm:py-16 bg-[#FFFDF9]">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10"><span class="text-[#C41E3A] font-semibold text-sm uppercase tracking-wider">Spesial Hari Ini</span>
+       <h2 class="font-display text-3xl sm:text-4xl font-bold text-[#2D5A27] mt-2">Menu Favorit Minggu Ini</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Special 1 -->
+       <div class="bg-gradient-to-br from-[#C41E3A] to-[#991B2E] rounded-3xl p-6 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div><span class="inline-block bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-4">🔥 Best Seller</span>
+        <h3 class="font-display text-2xl font-bold mb-2">Paket Ayam Goreng</h3>
+        <p class="text-white/80 text-sm mb-4">Ayam goreng renyah + lalapan lengkap + sambal terasi</p>
+        <div class="flex items-center justify-between"><span class="text-3xl font-bold">Rp 25K</span> <button onclick="quickAdd('ayam-goreng')" class="bg-white text-[#C41E3A] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"> + Keranjang </button>
+        </div>
+       </div><!-- Special 2 -->
+       <div class="bg-gradient-to-br from-[#2D5A27] to-[#1F3D1B] rounded-3xl p-6 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div><span class="inline-block bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-4">🌿 Sehat</span>
+        <h3 class="font-display text-2xl font-bold mb-2">Paket Vegetarian</h3>
+        <p class="text-white/80 text-sm mb-4">Tahu tempe bacem + lalapan super + sambal matah</p>
+        <div class="flex items-center justify-between"><span class="text-3xl font-bold">Rp 18K</span> <button onclick="quickAdd('vegetarian')" class="bg-white text-[#2D5A27] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"> + Keranjang </button>
+        </div>
+       </div><!-- Special 3 -->
+       <div class="bg-gradient-to-br from-[#8B5A2B] to-[#6B4423] rounded-3xl p-6 text-white relative overflow-hidden sm:col-span-2 lg:col-span-1">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div><span class="inline-block bg-white/20 px-3 py-1 rounded-full text-sm font-medium mb-4">⭐ Premium</span>
+        <h3 class="font-display text-2xl font-bold mb-2">Paket Ikan Bakar</h3>
+        <p class="text-white/80 text-sm mb-4">Ikan gurame bakar + lalapan komplit + sambal pencit</p>
+        <div class="flex items-center justify-between"><span class="text-3xl font-bold">Rp 45K</span> <button onclick="quickAdd('ikan-bakar')" class="bg-white text-[#8B5A2B] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors"> + Keranjang </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Product Catalog -->
+    <section id="menu" class="py-16 sm:py-20 banana-leaf-pattern">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12"><span class="text-[#C41E3A] font-semibold text-sm uppercase tracking-wider">Menu Lengkap</span>
+       <h2 class="font-display text-3xl sm:text-4xl font-bold text-[#2D5A27] mt-2 mb-4">Pilihan Paket Lalapan</h2>
+       <p class="text-gray-600 max-w-2xl mx-auto">Semua paket disajikan dengan nasi putih hangat, lalapan segar (timun, kemangi, kol, tomat), dan sambal pilihan</p>
+      </div><!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10"><button onclick="filterProducts('all')" class="filter-btn active px-6 py-2 bg-[#2D5A27] text-white rounded-full font-medium transition-all" data-filter="all">Semua</button> <button onclick="filterProducts('ayam')" class="filter-btn px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-[#E8F5E3] transition-all" data-filter="ayam">🍗 Ayam</button> <button onclick="filterProducts('ikan')" class="filter-btn px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-[#E8F5E3] transition-all" data-filter="ikan">🐟 Ikan</button> <button onclick="filterProducts('vegetarian')" class="filter-btn px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-[#E8F5E3] transition-all" data-filter="vegetarian">🥬 Vegetarian</button>
+      </div><!-- Product Grid -->
+      <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"><!-- Products will be rendered here -->
+      </div>
+     </div>
+    </section><!-- About Section -->
+    <section id="about" class="py-16 sm:py-20 bg-[#E8F5E3]">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+       <div><span class="text-[#C41E3A] font-semibold text-sm uppercase tracking-wider">Tentang Kami</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-[#2D5A27] mt-2 mb-6">Cerita Kami</h2>
+        <p id="about-text" class="text-gray-700 text-lg leading-relaxed mb-6">Berawal dari warung sederhana di pinggir jalan tahun 2010, Lalapan Nusantara kini telah menjadi destinasi kuliner favorit bagi pecinta lalapan autentik. Kami percaya bahwa kesegaran bahan adalah kunci kelezatan.</p>
+        <div class="grid grid-cols-2 gap-6 mb-8">
+         <div class="text-center p-4 bg-white rounded-2xl shadow-sm"><span class="text-4xl mb-2 block">🌾</span>
+          <h4 class="font-bold text-[#2D5A27]">Bahan Segar</h4>
+          <p class="text-sm text-gray-600">Dipilih setiap pagi dari petani lokal</p>
+         </div>
+         <div class="text-center p-4 bg-white rounded-2xl shadow-sm"><span class="text-4xl mb-2 block">👨‍🍳</span>
+          <h4 class="font-bold text-[#2D5A27]">Resep Turun Temurun</h4>
+          <p class="text-sm text-gray-600">Cita rasa otentik keluarga</p>
+         </div>
+         <div class="text-center p-4 bg-white rounded-2xl shadow-sm"><span class="text-4xl mb-2 block">🌶️</span>
+          <h4 class="font-bold text-[#2D5A27]">Sambal Homemade</h4>
+          <p class="text-sm text-gray-600">Diulek fresh setiap hari</p>
+         </div>
+         <div class="text-center p-4 bg-white rounded-2xl shadow-sm"><span class="text-4xl mb-2 block">💚</span>
+          <h4 class="font-bold text-[#2D5A27]">Tanpa Pengawet</h4>
+          <p class="text-sm text-gray-600">100% bahan alami</p>
+         </div>
+        </div>
+       </div>
+       <div class="relative">
+        <div class="bg-white rounded-3xl p-8 shadow-xl">
+         <div class="aspect-square bg-gradient-to-br from-[#2D5A27] to-[#4A7C43] rounded-2xl flex items-center justify-center relative overflow-hidden"><!-- Traditional kitchen illustration -->
+          <svg class="w-3/4 h-3/4" viewbox="0 0 200 200"><!-- Background pattern --> <rect width="200" height="200" fill="#2D5A27" /> <circle cx="30" cy="30" r="20" fill="#4A7C43" opacity="0.3" /> <circle cx="170" cy="170" r="30" fill="#4A7C43" opacity="0.3" /> <!-- Cobek (mortar) --> <ellipse cx="100" cy="140" rx="50" ry="25" fill="#5D4037" /> <ellipse cx="100" cy="130" rx="45" ry="20" fill="#6D4C41" /> <ellipse cx="100" cy="125" rx="40" ry="15" fill="#C41E3A" /> <!-- Ulekan (pestle) --> <rect x="130" y="80" width="15" height="60" rx="5" fill="#8D6E63" transform="rotate(25 137 110)" /> <!-- Vegetables --> <ellipse cx="60" cy="80" rx="15" ry="20" fill="#4CAF50" /> <ellipse cx="80" cy="70" rx="12" ry="15" fill="#66BB6A" /> <circle cx="140" cy="75" r="10" fill="#F44336" /> <circle cx="155" cy="85" r="8" fill="#E53935" /> <!-- Leaves decoration --> <path d="M40 50 Q60 30 50 60 Q40 40 40 50" fill="#81C784" /> <path d="M150 40 Q170 25 160 55 Q150 35 150 40" fill="#81C784" />
+          </svg>
+          <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 text-center">
+           <p class="font-display text-[#2D5A27] font-bold">Sejak 2010</p>
+           <p class="text-sm text-gray-600">Melayani dengan ❤️</p>
+          </div>
+         </div>
+        </div><!-- Decorative badge -->
+        <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#C41E3A] rounded-full flex items-center justify-center text-white shadow-lg">
+         <div class="text-center"><span class="text-2xl font-bold">14+</span>
+          <p class="text-xs">Tahun</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-20 bg-[#FFFDF9]">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12"><span class="text-[#C41E3A] font-semibold text-sm uppercase tracking-wider">Hubungi Kami</span>
+       <h2 class="font-display text-3xl sm:text-4xl font-bold text-[#2D5A27] mt-2 mb-4">Lokasi &amp; Kontak</h2>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-8"><!-- Map placeholder -->
+       <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+        <div class="aspect-video bg-gradient-to-br from-[#E8F5E3] to-[#d4eacc] flex items-center justify-center relative"><!-- Stylized map illustration -->
+         <svg class="w-full h-full" viewbox="0 0 400 250"><rect width="400" height="250" fill="#E8F5E3" /> <!-- Roads --> <path d="M0 125 L400 125" stroke="#D4D4D4" stroke-width="20" /> <path d="M200 0 L200 250" stroke="#D4D4D4" stroke-width="15" /> <path d="M50 50 L350 200" stroke="#E5E5E5" stroke-width="8" /> <!-- Buildings --> <rect x="50" y="60" width="40" height="50" rx="4" fill="#C4C4C4" /> <rect x="300" y="150" width="50" height="60" rx="4" fill="#C4C4C4" /> <rect x="120" y="160" width="35" height="45" rx="4" fill="#C4C4C4" /> <!-- Trees --> <circle cx="280" cy="80" r="15" fill="#4A7C43" /> <circle cx="80" cy="180" r="12" fill="#4A7C43" /> <circle cx="350" cy="60" r="10" fill="#4A7C43" /> <!-- Location marker --> <g transform="translate(200, 100)">
+           <ellipse cx="0" cy="30" rx="15" ry="5" fill="rgba(196, 30, 58, 0.3)" />
+           <path d="M0 -30 C-20 -30 -25 -10 -25 5 C-25 20 0 35 0 35 C0 35 25 20 25 5 C25 -10 20 -30 0 -30 Z" fill="#C41E3A" />
+           <circle cx="0" cy="-5" r="8" fill="white" />
+          </g>
+         </svg>
+         <div class="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg">
+          <p id="address-display" class="font-semibold text-[#2D5A27]">Jl. Raya Lalapan No. 123</p>
+          <p class="text-sm text-gray-600">Kota Bandung, Jawa Barat 40123</p>
+         </div>
+        </div>
+       </div><!-- Contact Info -->
+       <div class="space-y-6">
+        <div class="bg-white rounded-2xl p-6 shadow-lg flex items-center gap-4">
+         <div class="w-14 h-14 bg-[#E8F5E3] rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-7 h-7 text-[#2D5A27]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+          </svg>
+         </div>
+         <div>
+          <h4 class="font-bold text-gray-800">Alamat</h4>
+          <p id="contact-address" class="text-gray-600">Jl. Raya Lalapan No. 123, Bandung</p>
+         </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-lg flex items-center gap-4">
+         <div class="w-14 h-14 bg-[#E8F5E3] rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-7 h-7 text-[#2D5A27]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          </svg>
+         </div>
+         <div>
+          <h4 class="font-bold text-gray-800">Jam Operasional</h4>
+          <p class="text-gray-600">Setiap Hari: 10:00 - 21:00 WIB</p>
+         </div>
+        </div><a id="whatsapp-link" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="block bg-[#25D366] rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
+         <div class="flex items-center gap-4">
+          <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+           <svg class="w-8 h-8 text-[#25D366]" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+           </svg>
+          </div>
+          <div class="text-white">
+           <h4 class="font-bold text-lg">Pesan via WhatsApp</h4>
+           <p id="wa-number-display" class="text-white/90">+62 812-3456-7890</p>
+          </div>
+          <svg class="w-6 h-6 text-white ml-auto" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+         </div></a>
+       </div>
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <footer class="bg-[#2D5A27] text-white py-12">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+       <div>
+        <div class="flex items-center gap-2 mb-4">
+         <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" viewbox="0 0 24 24" fill="currentColor"><path d="M12 2C8.5 2 5.5 4 4 7c-1.5 3-1 6.5 1 9s5 4 8 4c2.5 0 5-1 6.5-3s2-4.5 1-7c-.5-1.5-1.5-3-3-4C16 4.5 14 3 12 2z" />
+          </svg>
+         </div><span id="footer-brand" class="font-display text-xl font-bold">Lalapan Nusantara</span>
+        </div>
+        <p class="text-green-100 text-sm">Lalapan segar dengan cita rasa autentik Nusantara. Dibuat dengan cinta sejak 2010.</p>
+       </div>
+       <div>
+        <h4 class="font-bold mb-4">Menu</h4>
+        <ul class="space-y-2 text-green-100 text-sm">
+         <li><a href="#menu" class="hover:text-white transition-colors">Paket Ayam</a></li>
+         <li><a href="#menu" class="hover:text-white transition-colors">Paket Ikan</a></li>
+         <li><a href="#menu" class="hover:text-white transition-colors">Paket Vegetarian</a></li>
+         <li><a href="#menu" class="hover:text-white transition-colors">Sambal Pilihan</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold mb-4">Info</h4>
+        <ul class="space-y-2 text-green-100 text-sm">
+         <li><a href="#about" class="hover:text-white transition-colors">Tentang Kami</a></li>
+         <li><a href="#contact" class="hover:text-white transition-colors">Lokasi</a></li>
+         <li><a href="#contact" class="hover:text-white transition-colors">Jam Buka</a></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-bold mb-4">Ikuti Kami</h4>
+        <div class="flex gap-3"><a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg></a> <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+          </svg></a> <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
+          </svg></a>
+        </div>
+       </div>
+      </div>
+      <div class="border-t border-white/20 pt-8 text-center text-green-100 text-sm">
+       <p>© 2024 Lalapan Nusantara. Semua hak dilindungi.</p>
+      </div>
+     </div>
+    </footer>
+   </div><!-- Cart Sidebar -->
+   <div id="cart-sidebar" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="hideCart()"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl transform transition-transform">
+     <div class="h-full flex flex-col">
+      <div class="p-6 border-b flex items-center justify-between bg-[#2D5A27] text-white">
+       <h3 class="font-display text-xl font-bold">Keranjang Belanja</h3><button onclick="hideCart()" class="p-2 hover:bg-white/20 rounded-full transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg></button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-auto p-6"><!-- Cart items will be rendered here -->
+      </div>
+      <div class="p-6 border-t bg-gray-50">
+       <div class="flex justify-between items-center mb-4"><span class="text-gray-600">Total</span> <span id="cart-total" class="text-2xl font-bold text-[#2D5A27]">Rp 0</span>
+       </div><button id="checkout-btn" onclick="proceedToCheckout()" class="w-full py-4 bg-[#C41E3A] text-white font-bold rounded-full hover:bg-[#A3162E] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"> Lanjut ke Checkout </button>
+      </div>
+     </div>
+    </div>
+   </div><!-- Product Detail Modal -->
+   <div id="product-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="hideProductModal()"></div>
+    <div class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90%] overflow-y-auto">
+     <div id="modal-content"><!-- Product details will be rendered here -->
+     </div>
+    </div>
+   </div><!-- Checkout Modal -->
+   <div id="checkout-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/50" onclick="hideCheckout()"></div>
+    <div class="absolute inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90%] overflow-y-auto">
+     <div class="p-6 bg-[#2D5A27] text-white">
+      <h3 class="font-display text-2xl font-bold">Checkout</h3>
+      <p class="text-green-100">Lengkapi data untuk pemesanan</p>
+     </div>
+     <form id="checkout-form" class="p-6 space-y-4" onsubmit="submitOrder(event)">
+      <div><label for="customer-name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label> <input type="text" id="customer-name" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2D5A27] focus:border-transparent" placeholder="Masukkan nama Anda">
+      </div>
+      <div><label for="customer-phone" class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp</label> <input type="tel" id="customer-phone" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2D5A27] focus:border-transparent" placeholder="+62 xxx">
+      </div>
+      <div><label for="customer-address" class="block text-sm font-medium text-gray-700 mb-1">Alamat Pengiriman</label> <textarea id="customer-address" rows="3" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2D5A27] focus:border-transparent resize-none" placeholder="Masukkan alamat lengkap"></textarea>
+      </div>
+      <div><label for="customer-notes" class="block text-sm font-medium text-gray-700 mb-1">Catatan (Opsional)</label> <textarea id="customer-notes" rows="2" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2D5A27] focus:border-transparent resize-none" placeholder="Catatan khusus untuk pesanan"></textarea>
+      </div>
+      <div id="checkout-summary" class="bg-[#E8F5E3] rounded-xl p-4"><!-- Order summary will be rendered here -->
+      </div>
+      <div class="flex gap-3 pt-4"><button type="button" onclick="hideCheckout()" class="flex-1 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-colors"> Batal </button> <button type="submit" class="flex-1 py-3 bg-[#25D366] text-white font-bold rounded-full hover:bg-[#1DA851] transition-colors flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg> Pesan via WA </button>
+      </div>
+     </form>
+    </div>
+   </div><!-- Toast Notifications -->
+   <div id="toast-container" class="fixed top-24 right-4 z-50 space-y-2"></div><!-- Floating WhatsApp Button --> <a id="floating-wa" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="floating-whatsapp fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg></a>
+  </div>
+  <script>
+    // Product Data
+    const products = [
+      {
+        id: 'ayam-goreng',
+        name: 'Paket Ayam Goreng',
+        description: 'Ayam goreng renyah dengan bumbu rahasia, disajikan dengan lalapan segar dan sambal terasi homemade.',
+        price: 25000,
+        category: 'ayam',
+        spicyLevel: 2,
+        image: '🍗',
+        ingredients: ['Ayam kampung', 'Nasi putih', 'Lalapan (timun, kemangi, kol, tomat)', 'Sambal terasi'],
+        nutrition: { calories: '450 kkal', protein: '28g', carbs: '45g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'extra-nasi', name: 'Extra Nasi', price: 5000 },
+          { id: 'teh-manis', name: 'Teh Manis', price: 5000 },
+          { id: 'es-jeruk', name: 'Es Jeruk', price: 7000 }
+        ],
+        sambalOptions: ['Sambal Terasi', 'Sambal Matah', 'Sambal Pencit', 'Sambal Ijo']
+      },
+      {
+        id: 'ayam-bakar',
+        name: 'Paket Ayam Bakar',
+        description: 'Ayam bakar dengan bumbu kecap manis dan rempah pilihan, aroma bakaran yang menggugah selera.',
+        price: 28000,
+        category: 'ayam',
+        spicyLevel: 2,
+        image: '🍖',
+        ingredients: ['Ayam kampung bakar', 'Nasi putih', 'Lalapan segar', 'Sambal kecap'],
+        nutrition: { calories: '420 kkal', protein: '30g', carbs: '42g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'extra-nasi', name: 'Extra Nasi', price: 5000 },
+          { id: 'teh-manis', name: 'Teh Manis', price: 5000 }
+        ],
+        sambalOptions: ['Sambal Kecap', 'Sambal Terasi', 'Sambal Matah']
+      },
+      {
+        id: 'ayam-penyet',
+        name: 'Paket Ayam Penyet',
+        description: 'Ayam goreng dipenyet dengan sambal bawang yang pedas nikmat. Favorit para pecinta pedas!',
+        price: 26000,
+        category: 'ayam',
+        spicyLevel: 3,
+        image: '🔥',
+        ingredients: ['Ayam penyet', 'Nasi putih', 'Lalapan', 'Sambal bawang'],
+        nutrition: { calories: '480 kkal', protein: '27g', carbs: '48g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'tahu-tempe', name: 'Tahu Tempe', price: 8000 }
+        ],
+        sambalOptions: ['Sambal Bawang', 'Sambal Terasi Extra Pedas']
+      },
+      {
+        id: 'ikan-bakar',
+        name: 'Paket Ikan Bakar',
+        description: 'Ikan gurame bakar dengan bumbu khas, disajikan utuh dengan lalapan komplit.',
+        price: 45000,
+        category: 'ikan',
+        spicyLevel: 2,
+        image: '🐟',
+        ingredients: ['Ikan gurame bakar', 'Nasi putih', 'Lalapan komplit', 'Sambal pencit'],
+        nutrition: { calories: '380 kkal', protein: '35g', carbs: '38g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'extra-nasi', name: 'Extra Nasi', price: 5000 },
+          { id: 'sup-ikan', name: 'Sup Kepala Ikan', price: 15000 }
+        ],
+        sambalOptions: ['Sambal Pencit', 'Sambal Matah', 'Sambal Dabu-dabu']
+      },
+      {
+        id: 'ikan-goreng',
+        name: 'Paket Ikan Goreng',
+        description: 'Ikan nila goreng garing dengan balutan tepung renyah, cocok untuk yang suka tekstur crispy.',
+        price: 30000,
+        category: 'ikan',
+        spicyLevel: 1,
+        image: '🍤',
+        ingredients: ['Ikan nila goreng', 'Nasi putih', 'Lalapan', 'Sambal terasi'],
+        nutrition: { calories: '400 kkal', protein: '32g', carbs: '40g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'kerupuk', name: 'Kerupuk', price: 3000 }
+        ],
+        sambalOptions: ['Sambal Terasi', 'Sambal Tomat']
+      },
+      {
+        id: 'lele-goreng',
+        name: 'Paket Lele Goreng',
+        description: 'Lele goreng crispy dengan sambal lalapan khas warung. Porsi besar, harga bersahabat!',
+        price: 20000,
+        category: 'ikan',
+        spicyLevel: 2,
+        image: '🐠',
+        ingredients: ['Lele goreng 2 ekor', 'Nasi putih', 'Lalapan', 'Sambal terasi'],
+        nutrition: { calories: '420 kkal', protein: '28g', carbs: '44g' },
+        addOns: [
+          { id: 'extra-lele', name: 'Extra Lele', price: 8000 },
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 }
+        ],
+        sambalOptions: ['Sambal Terasi', 'Sambal Bawang']
+      },
+      {
+        id: 'vegetarian',
+        name: 'Paket Vegetarian',
+        description: 'Tahu dan tempe bacem manis gurih dengan lalapan super lengkap. Sehat dan lezat!',
+        price: 18000,
+        category: 'vegetarian',
+        spicyLevel: 1,
+        image: '🥬',
+        ingredients: ['Tahu bacem', 'Tempe bacem', 'Nasi putih', 'Lalapan super', 'Sambal matah'],
+        nutrition: { calories: '320 kkal', protein: '18g', carbs: '42g' },
+        addOns: [
+          { id: 'extra-tahu', name: 'Extra Tahu', price: 5000 },
+          { id: 'extra-tempe', name: 'Extra Tempe', price: 5000 },
+          { id: 'perkedel', name: 'Perkedel', price: 5000 }
+        ],
+        sambalOptions: ['Sambal Matah', 'Sambal Ijo', 'Sambal Tomat']
+      },
+      {
+        id: 'tahu-tempe-goreng',
+        name: 'Paket Tahu Tempe Goreng',
+        description: 'Tahu dan tempe goreng renyah dengan tepung crispy. Cocok untuk yang ingin makan ringan.',
+        price: 15000,
+        category: 'vegetarian',
+        spicyLevel: 1,
+        image: '🧈',
+        ingredients: ['Tahu goreng crispy', 'Tempe goreng crispy', 'Nasi putih', 'Lalapan', 'Sambal kecap'],
+        nutrition: { calories: '350 kkal', protein: '16g', carbs: '45g' },
+        addOns: [
+          { id: 'extra-sambal', name: 'Extra Sambal', price: 3000 },
+          { id: 'telur-dadar', name: 'Telur Dadar', price: 6000 }
+        ],
+        sambalOptions: ['Sambal Kecap', 'Sambal Terasi']
+      }
+    ];
+
+    // State
+    let cart = [];
+    let currentFilter = 'all';
+    let config = {};
+
+    // Default Configuration
+    const defaultConfig = {
+      business_name: 'Lalapan Nusantara',
+      tagline: 'Lalapan Segar, Cita Rasa Nusantara',
+      hero_title: 'Lalapan Segar, Cita Rasa Nusantara',
+      promo_text: '🔥 Promo Hari Ini: Gratis Sambal Extra!',
+      about_story: 'Berawal dari warung sederhana di pinggir jalan tahun 2010, Lalapan Nusantara kini telah menjadi destinasi kuliner favorit bagi pecinta lalapan autentik. Kami percaya bahwa kesegaran bahan adalah kunci kelezatan.',
+      whatsapp_number: '+62 812-3456-7890',
+      address: 'Jl. Raya Lalapan No. 123, Bandung',
+      background_color: '#FFFDF9',
+      primary_color: '#2D5A27',
+      accent_color: '#C41E3A',
+      text_color: '#1F2937',
+      surface_color: '#FFFFFF'
+    };
+
+    // Initialize SDKs
+    async function initApp() {
+      // Initialize Element SDK
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (newConfig) => {
+            config = { ...defaultConfig, ...newConfig };
+            applyConfig();
+          },
+          mapToCapabilities: (cfg) => ({
+            recolorables: [
+              {
+                get: () => cfg.background_color || defaultConfig.background_color,
+                set: (v) => { cfg.background_color = v; window.elementSdk.setConfig({ background_color: v }); }
+              },
+              {
+                get: () => cfg.surface_color || defaultConfig.surface_color,
+                set: (v) => { cfg.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }
+              },
+              {
+                get: () => cfg.text_color || defaultConfig.text_color,
+                set: (v) => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); }
+              },
+              {
+                get: () => cfg.primary_color || defaultConfig.primary_color,
+                set: (v) => { cfg.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); }
+              },
+              {
+                get: () => cfg.accent_color || defaultConfig.accent_color,
+                set: (v) => { cfg.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); }
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ['business_name', cfg.business_name || defaultConfig.business_name],
+            ['tagline', cfg.tagline || defaultConfig.tagline],
+            ['hero_title', cfg.hero_title || defaultConfig.hero_title],
+            ['promo_text', cfg.promo_text || defaultConfig.promo_text],
+            ['about_story', cfg.about_story || defaultConfig.about_story],
+            ['whatsapp_number', cfg.whatsapp_number || defaultConfig.whatsapp_number],
+            ['address', cfg.address || defaultConfig.address]
+          ])
+        });
+        config = { ...defaultConfig, ...window.elementSdk.config };
+      } else {
+        config = { ...defaultConfig };
+      }
+
+      // Initialize Data SDK
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init({
+          onDataChanged: (data) => {
+            cart = data.map(item => ({
+              ...item,
+              backendId: item.__backendId
+            }));
+            updateCartUI();
+          }
+        });
+        if (!result.isOk) {
+          console.error('Failed to initialize Data SDK');
+        }
+      }
+
+      applyConfig();
+      renderProducts();
+    }
+
+    // Apply configuration to UI
+    function applyConfig() {
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+
+      // Apply colors
+      document.body.style.backgroundColor = bgColor;
+      
+      // Update text elements
+      const navBrand = document.getElementById('nav-brand');
+      if (navBrand) navBrand.textContent = config.business_name || defaultConfig.business_name;
+      
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) heroTitle.innerHTML = (config.hero_title || defaultConfig.hero_title).replace(',', ',<br>');
+      
+      const promoBanner = document.getElementById('promo-banner');
+      if (promoBanner) promoBanner.textContent = config.promo_text || defaultConfig.promo_text;
+      
+      const aboutText = document.getElementById('about-text');
+      if (aboutText) aboutText.textContent = config.about_story || defaultConfig.about_story;
+      
+      const addressDisplay = document.getElementById('address-display');
+      if (addressDisplay) addressDisplay.textContent = config.address || defaultConfig.address;
+      
+      const contactAddress = document.getElementById('contact-address');
+      if (contactAddress) contactAddress.textContent = config.address || defaultConfig.address;
+      
+      const waNumberDisplay = document.getElementById('wa-number-display');
+      if (waNumberDisplay) waNumberDisplay.textContent = config.whatsapp_number || defaultConfig.whatsapp_number;
+      
+      const footerBrand = document.getElementById('footer-brand');
+      if (footerBrand) footerBrand.textContent = config.business_name || defaultConfig.business_name;
+
+      // Update WhatsApp links
+      const waNumber = (config.whatsapp_number || defaultConfig.whatsapp_number).replace(/[^0-9]/g, '');
+      const whatsappLink = document.getElementById('whatsapp-link');
+      if (whatsappLink) whatsappLink.href = `https://wa.me/${waNumber}`;
+      
+      const floatingWa = document.getElementById('floating-wa');
+      if (floatingWa) floatingWa.href = `https://wa.me/${waNumber}`;
+    }
+
+    // Render products
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      if (!grid) return;
+
+      const filteredProducts = currentFilter === 'all' 
+        ? products 
+        : products.filter(p => p.category === currentFilter);
+
+      grid.innerHTML = filteredProducts.map(product => `
+        <div class="food-card bg-white rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="showProductDetail('${product.id}')">
+          <div class="relative">
+            <div class="aspect-square bg-gradient-to-br from-[#E8F5E3] to-[#d4eacc] flex items-center justify-center">
+              <span class="text-7xl">${product.image}</span>
+            </div>
+            <div class="absolute top-3 right-3 flex gap-1">
+              ${renderSpicyLevel(product.spicyLevel)}
+            </div>
+            ${product.id === 'ayam-goreng' ? '<div class="absolute top-3 left-3 bg-[#C41E3A] text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</div>' : ''}
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-bold text-gray-800 mb-2">${product.name}</h3>
+            <p class="text-gray-600 text-sm mb-4 line-clamp-2">${product.description}</p>
+            <div class="flex items-center justify-between">
+              <span class="text-xl font-bold text-[#2D5A27]">Rp ${formatPrice(product.price)}</span>
+              <button onclick="event.stopPropagation(); quickAdd('${product.id}')" class="p-3 bg-[#2D5A27] text-white rounded-full hover:bg-[#1F3D1B] transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render spicy level
+    function renderSpicyLevel(level) {
+      return Array(3).fill(0).map((_, i) => `
+        <span class="spicy-dot" style="background-color: ${i < level ? '#C41E3A' : '#E5E7EB'}"></span>
+      `).join('');
+    }
+
+    // Format price
+    function formatPrice(price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    // Filter products
+    function filterProducts(category) {
+      currentFilter = category;
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.classList.add('bg-[#2D5A27]', 'text-white');
+          btn.classList.remove('bg-white', 'text-gray-700');
+        } else {
+          btn.classList.remove('bg-[#2D5A27]', 'text-white');
+          btn.classList.add('bg-white', 'text-gray-700');
+        }
+      });
+      
+      renderProducts();
+    }
+
+    // Show product detail modal
+    function showProductDetail(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const modal = document.getElementById('product-modal');
+      const content = document.getElementById('modal-content');
+      
+      content.innerHTML = `
+        <div class="relative">
+          <button onclick="hideProductModal()" class="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors">
+            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <div class="aspect-video bg-gradient-to-br from-[#E8F5E3] to-[#d4eacc] flex items-center justify-center">
+            <span class="text-9xl">${product.image}</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h2 class="font-display text-2xl font-bold text-gray-800">${product.name}</h2>
+              <div class="flex items-center gap-2 mt-2">
+                <span class="text-sm text-gray-600">Level Pedas:</span>
+                ${renderSpicyLevel(product.spicyLevel)}
+              </div>
+            </div>
+            <span class="text-2xl font-bold text-[#2D5A27]">Rp ${formatPrice(product.price)}</span>
+          </div>
+          
+          <p class="text-gray-600 mb-6">${product.description}</p>
+          
+          <div class="grid sm:grid-cols-2 gap-4 mb-6">
+            <div class="bg-[#E8F5E3] rounded-xl p-4">
+              <h4 class="font-semibold text-[#2D5A27] mb-2">🥗 Komposisi</h4>
+              <ul class="text-sm text-gray-700 space-y-1">
+                ${product.ingredients.map(ing => `<li>• ${ing}</li>`).join('')}
+              </ul>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4">
+              <h4 class="font-semibold text-gray-800 mb-2">📊 Nutrisi</h4>
+              <div class="text-sm text-gray-700 space-y-1">
+                <p>Kalori: ${product.nutrition.calories}</p>
+                <p>Protein: ${product.nutrition.protein}</p>
+                <p>Karbo: ${product.nutrition.carbs}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-800 mb-3">🌶️ Pilihan Sambal</h4>
+            <div class="flex flex-wrap gap-2">
+              ${product.sambalOptions.map((sambal, i) => `
+                <label class="inline-flex items-center">
+                  <input type="radio" name="sambal-${product.id}" value="${sambal}" ${i === 0 ? 'checked' : ''} class="sr-only peer">
+                  <span class="px-4 py-2 bg-gray-100 rounded-full text-sm cursor-pointer peer-checked:bg-[#C41E3A] peer-checked:text-white transition-colors">${sambal}</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-800 mb-3">➕ Tambahan</h4>
+            <div class="space-y-2">
+              ${product.addOns.map(addon => `
+                <label class="flex items-center justify-between p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" id="addon-${addon.id}" value="${addon.id}" class="w-5 h-5 rounded text-[#2D5A27] focus:ring-[#2D5A27]">
+                    <span class="text-gray-700">${addon.name}</span>
+                  </div>
+                  <span class="text-[#2D5A27] font-semibold">+Rp ${formatPrice(addon.price)}</span>
+                </label>
+              `).join('')}
+            </div>
+          </div>
+          
+          <button onclick="addToCartFromModal('${product.id}')" class="w-full py-4 bg-[#2D5A27] text-white font-bold rounded-full hover:bg-[#1F3D1B] transition-colors flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            Tambah ke Keranjang
+          </button>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+
+    function hideProductModal() {
+      document.getElementById('product-modal').classList.add('hidden');
+    }
+
+    // Quick add to cart
+    async function quickAdd(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      if (cart.length >= 999) {
+        showToast('Keranjang penuh! Maksimal 999 item.', 'error');
+        return;
+      }
+
+      const cartItem = {
+        id: Date.now().toString(),
+        product_id: product.id,
+        product_name: product.name,
+        price: product.price,
+        quantity: 1,
+        spicy_level: product.sambalOptions[0],
+        add_ons: '',
+        created_at: new Date().toISOString()
+      };
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create(cartItem);
+        if (result.isOk) {
+          showToast(`${product.name} ditambahkan!`, 'success');
+        } else {
+          showToast('Gagal menambahkan item', 'error');
+        }
+      } else {
+        cart.push(cartItem);
+        updateCartUI();
+        showToast(`${product.name} ditambahkan!`, 'success');
+      }
+    }
+
+    // Add to cart from modal
+    async function addToCartFromModal(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      if (cart.length >= 999) {
+        showToast('Keranjang penuh! Maksimal 999 item.', 'error');
+        return;
+      }
+
+      const selectedSambal = document.querySelector(`input[name="sambal-${productId}"]:checked`)?.value || product.sambalOptions[0];
+      const selectedAddOns = Array.from(document.querySelectorAll(`input[id^="addon-"]:checked`)).map(el => el.value);
+      
+      const addOnPrices = selectedAddOns.reduce((sum, addonId) => {
+        const addon = product.addOns.find(a => a.id === addonId);
+        return sum + (addon ? addon.price : 0);
+      }, 0);
+
+      const cartItem = {
+        id: Date.now().toString(),
+        product_id: product.id,
+        product_name: product.name,
+        price: product.price + addOnPrices,
+        quantity: 1,
+        spicy_level: selectedSambal,
+        add_ons: selectedAddOns.join(','),
+        created_at: new Date().toISOString()
+      };
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create(cartItem);
+        if (result.isOk) {
+          showToast(`${product.name} ditambahkan!`, 'success');
+          hideProductModal();
+        } else {
+          showToast('Gagal menambahkan item', 'error');
+        }
+      } else {
+        cart.push(cartItem);
+        updateCartUI();
+        showToast(`${product.name} ditambahkan!`, 'success');
+        hideProductModal();
+      }
+    }
+
+    // Update cart UI
+    function updateCartUI() {
+      const cartCount = document.getElementById('cart-count');
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      // Update cart count badge
+      if (cart.length > 0) {
+        cartCount.textContent = cart.length;
+        cartCount.classList.remove('hidden');
+      } else {
+        cartCount.classList.add('hidden');
+      }
+
+      // Update cart items
+      if (cart.length === 0) {
+        cartItems.innerHTML = `
+          <div class="text-center py-12">
+            <span class="text-6xl mb-4 block">🛒</span>
+            <p class="text-gray-500">Keranjang masih kosong</p>
+            <a href="#menu" onclick="hideCart()" class="inline-block mt-4 text-[#2D5A27] font-semibold hover:underline">Lihat Menu</a>
+          </div>
+        `;
+        checkoutBtn.disabled = true;
+      } else {
+        cartItems.innerHTML = cart.map(item => {
+          const product = products.find(p => p.id === item.product_id);
+          return `
+            <div class="flex gap-4 p-4 bg-gray-50 rounded-2xl mb-3">
+              <div class="w-16 h-16 bg-[#E8F5E3] rounded-xl flex items-center justify-center flex-shrink-0">
+                <span class="text-3xl">${product?.image || '🍽️'}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-semibold text-gray-800 truncate">${item.product_name}</h4>
+                <p class="text-sm text-gray-500">${item.spicy_level}</p>
+                ${item.add_ons ? `<p class="text-xs text-gray-400">+${item.add_ons.split(',').length} tambahan</p>` : ''}
+                <p class="font-bold text-[#2D5A27] mt-1">Rp ${formatPrice(item.price)}</p>
+              </div>
+              <button onclick="removeFromCart('${item.backendId || item.id}')" class="p-2 text-gray-400 hover:text-[#C41E3A] transition-colors self-start">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </div>
+          `;
+        }).join('');
+        checkoutBtn.disabled = false;
+      }
+
+      // Update total
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      cartTotal.textContent = `Rp ${formatPrice(total)}`;
+    }
+
+    // Remove from cart
+    async function removeFromCart(itemId) {
+      const item = cart.find(i => (i.backendId || i.id) === itemId);
+      if (!item) return;
+
+      if (window.dataSdk && item.backendId) {
+        const originalItem = cart.find(i => i.backendId === itemId);
+        if (originalItem && originalItem.__backendId) {
+          const result = await window.dataSdk.delete({ __backendId: originalItem.__backendId });
+          if (!result.isOk) {
+            showToast('Gagal menghapus item', 'error');
+          }
+        }
+      } else {
+        cart = cart.filter(i => i.id !== itemId);
+        updateCartUI();
+      }
+    }
+
+    // Show/hide cart
+    function showCart() {
+      document.getElementById('cart-sidebar').classList.remove('hidden');
+    }
+
+    function hideCart() {
+      document.getElementById('cart-sidebar').classList.add('hidden');
+    }
+
+    // Checkout
+    function proceedToCheckout() {
+      if (cart.length === 0) return;
+      hideCart();
+      
+      const checkoutSummary = document.getElementById('checkout-summary');
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      
+      checkoutSummary.innerHTML = `
+        <h4 class="font-semibold text-[#2D5A27] mb-3">Ringkasan Pesanan</h4>
+        <div class="space-y-2 text-sm">
+          ${cart.map(item => `
+            <div class="flex justify-between">
+              <span class="text-gray-700">${item.product_name}</span>
+              <span class="font-medium">Rp ${formatPrice(item.price)}</span>
+            </div>
+          `).join('')}
+          <div class="border-t border-[#2D5A27]/20 pt-2 mt-2 flex justify-between font-bold text-[#2D5A27]">
+            <span>Total</span>
+            <span>Rp ${formatPrice(total)}</span>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+
+    function hideCheckout() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+
+    // Submit order via WhatsApp
+    function submitOrder(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('customer-name').value;
+      const phone = document.getElementById('customer-phone').value;
+      const address = document.getElementById('customer-address').value;
+      const notes = document.getElementById('customer-notes').value;
+      
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      
+      let message = `🍽️ *PESANAN BARU - ${config.business_name || defaultConfig.business_name}*\n\n`;
+      message += `*Nama:* ${name}\n`;
+      message += `*No. HP:* ${phone}\n`;
+      message += `*Alamat:* ${address}\n`;
+      if (notes) message += `*Catatan:* ${notes}\n`;
+      message += `\n*Detail Pesanan:*\n`;
+      
+      cart.forEach(item => {
+        message += `• ${item.product_name} - Rp ${formatPrice(item.price)}\n`;
+        message += `  Sambal: ${item.spicy_level}\n`;
+        if (item.add_ons) message += `  Tambahan: ${item.add_ons}\n`;
+      });
+      
+      message += `\n*TOTAL: Rp ${formatPrice(total)}*\n`;
+      message += `\nTerima kasih! 🙏`;
+      
+      const waNumber = (config.whatsapp_number || defaultConfig.whatsapp_number).replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+      
+      window.open(waUrl, '_blank');
+      hideCheckout();
+      showToast('Pesanan dikirim ke WhatsApp!', 'success');
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Toast notifications
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg ${type === 'success' ? 'bg-[#2D5A27] text-white' : 'bg-[#C41E3A] text-white'}`;
+      toast.innerHTML = `
+        <span>${type === 'success' ? '✓' : '!'}</span>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    // Initialize app
+    initApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c779524608fb5dc',t:'MTc3MDAxMzIyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
